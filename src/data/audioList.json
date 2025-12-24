@@ -10,5 +10,11 @@
     "title": "Good Evening 🌇",
     "image": "./images/sample1.png",
     "audio": "./audio/sample2.mp3"
+  },
+  {
+    "id": 3,
+    "title": "Good Night 🌙",
+    "image": "./images/sample3.png",
+    "audio": "./audio/sample3.mp3"
   }
 ]

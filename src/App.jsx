@@ -4,10 +4,19 @@ import AudioCard from "./components/AudioCard";
 
 export default function App() {
   const [currentAudio, setCurrentAudio] = useState(null);
+  const [theme, setTheme] = useState("dark"); // dark / light
+
+  const toggleTheme = () =>
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
 
   return (
-    <div className="app">
-      <h1 className="header">Our Story 💖</h1>
+    <div className={`app ${theme}`}>
+      <header className="app-header">
+        <h1>Our Story 💖</h1>
+        <button className="theme-btn" onClick={toggleTheme}>
+          {theme === "dark" ? "🌞 Light" : "🌙 Dark"}
+        </button>
+      </header>
 
       <div className="card-list">
         {audioList.map((item) => (
