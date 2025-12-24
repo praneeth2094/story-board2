@@ -4,5 +4,11 @@
     "title": "Good Morning ❤️",
     "image": "/images/sample.jpeg",
     "audio": "/audio/sample.mp3"
+  },
+  {
+    "id": 2,
+    "title": "Good Evening 🌇",
+    "image": "/images/sample1.png",
+    "audio": "/audio/sample2.mp3"
   }
 ]

@@ -1,33 +1,16 @@
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #0f0f0f;
-  color: #fff;
-}
-
-.app {
-  padding: 16px;
-}
-
-.header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
 .card-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px; /* slightly smaller spacing */
+  align-items: center; /* center cards horizontally */
 }
 
 .card {
   background: #1b1b1b;
   border-radius: 16px;
   padding: 12px;
+  width: 300px; /* restrict overall card width */
+  max-width: 90%; /* responsive on smaller screens */
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -38,30 +21,26 @@ body {
 
 .cover {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: 200px; /* restrict height */
   border-radius: 12px;
   object-fit: cover;
 }
 
 .play-btn {
   width: 100%;
-  margin-top: 10px;
-  padding: 10px;
-  background: #ff4d6d;
-  border: none;
-  border-radius: 999px;
-  color: white;
-  font-size: 16px;
+  margin-top: 8px;
+  padding: 8px;
+  font-size: 14px;
 }
 
 .progress {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 6px;
 }
 
 .title {
   text-align: center;
-  margin-top: 8px;
-  font-size: 14px;
+  margin-top: 6px;
+  font-size: 13px;
   opacity: 0.9;
 }
