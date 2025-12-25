@@ -11,6 +11,7 @@ export default function App() {
 
   return (
     <div className={`app ${theme}`}>
+      {/* Header */}
       <header className="app-header">
         <h1>Our Story 💖</h1>
         <button className="theme-btn" onClick={toggleTheme}>
@@ -18,6 +19,7 @@ export default function App() {
         </button>
       </header>
 
+      {/* Audio Cards */}
       <div className="card-list">
         {audioList.map((item) => (
           <AudioCard
@@ -25,6 +27,7 @@ export default function App() {
             data={item}
             currentAudio={currentAudio}
             setCurrentAudio={setCurrentAudio}
+            className={currentAudio?.id === item.id ? "playing" : ""}
           />
         ))}
       </div>
