@@ -185,6 +185,7 @@ body {
   );
 }
 
+/* Firefox */
 .progress::-moz-range-progress {
   background-color: var(--accent-primary);
   height: 6px;
@@ -238,4 +239,48 @@ body {
 }
 
 /* ====== Scrollbar Customization ====== */
-.card-list::-webkit-scr
+.card-list::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.card-list::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.card-list::-webkit-scrollbar-thumb {
+  background-color: var(--accent-primary);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: background-color 0.2s ease;
+}
+
+.card-list::-webkit-scrollbar-thumb:hover {
+  background-color: var(--accent-primary-hover);
+}
+
+/* Firefox */
+.card-list {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-primary) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ====== Smooth theme transitions ====== */
+.app {
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.play-btn {
+  transition: transform 0.15s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.cover {
+  transition: transform 0.3s ease, filter 0.3s ease, background 0.3s ease;
+}

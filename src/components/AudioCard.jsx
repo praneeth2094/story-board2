@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 export default function AudioCard({ data, currentAudio, setCurrentAudio }) {
   const audioRef = useRef(null);
   const canvasRef = useRef(null);
+  const audioSliderRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
@@ -29,9 +30,18 @@ export default function AudioCard({ data, currentAudio, setCurrentAudio }) {
 
   // Update progress and time
   const updateProgress = () => {
-    setCurrentTime(audioRef.current.currentTime);
-    setDuration(audioRef.current.duration || 0);
-    setProgress((audioRef.current.currentTime / audioRef.current.duration) * 100 || 0);
+    const audio = audioRef.current;
+    const current = audio.currentTime;
+    const dur = audio.duration || 0;
+    setCurrentTime(current);
+    setDuration(dur);
+    const prog = (current / dur) * 100 || 0;
+    setProgress(prog);
+
+    // Update CSS variable for gradient
+    if (audioSliderRef.current) {
+      audioSliderRef.current.style.setProperty("--progress", `${prog}%`);
+    }
   };
 
   // Enhanced mini waveform
@@ -45,9 +55,7 @@ export default function AudioCard({ data, currentAudio, setCurrentAudio }) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const barCount = 20;
       for (let i = 0; i < barCount; i++) {
-        // Base height
         const height = Math.random() * 10 + 5;
-        // Randomly highlight some bars in secondary color
         const isHighlight = Math.random() < 0.2;
         ctx.fillStyle = isHighlight ? "#3498DB" : "#2ECC71"; // secondary blue / primary green
         ctx.fillRect(i * 6, canvas.height - height, 4, height);
@@ -75,10 +83,20 @@ export default function AudioCard({ data, currentAudio, setCurrentAudio }) {
       <img src={data.image} alt={data.title} className="cover" />
 
       <button className="play-btn" onClick={togglePlay}>
-        {isPlaying ? "⏸ Pause" : "▶ Play"}
+        {isPlaying ? (
+          <svg viewBox="0 0 64 64">
+            <rect x="14" y="12" width="10" height="40" />
+            <rect x="40" y="12" width="10" height="40" />
+          </svg>
+        ) : (
+          <svg viewBox="0 0 64 64">
+            <polygon points="16,12 52,32 16,52" />
+          </svg>
+        )}
       </button>
 
       <input
+        ref={audioSliderRef}
         type="range"
         className="progress"
         value={progress}
@@ -86,6 +104,7 @@ export default function AudioCard({ data, currentAudio, setCurrentAudio }) {
           const time = (e.target.value / 100) * audioRef.current.duration;
           audioRef.current.currentTime = time;
           setProgress(e.target.value);
+          e.target.style.setProperty("--progress", `${e.target.value}%`);
         }}
       />
 
@@ -93,7 +112,12 @@ export default function AudioCard({ data, currentAudio, setCurrentAudio }) {
         {formatTime(currentTime)} / {formatTime(duration)}
       </div>
 
-      <canvas ref={canvasRef} width={120} height={20} className="visualizer" />
+      <canvas
+        ref={canvasRef}
+        width={120}
+        height={20}
+        className="visualizer"
+      />
 
       <p className="title">{data.title}</p>
 
