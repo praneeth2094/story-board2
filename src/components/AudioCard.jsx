@@ -8,14 +8,15 @@ export default function AudioCard({ data, currentAudio, setCurrentAudio }) {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
-  // Pause if another card starts playing
+  // Pause this audio if another card starts playing
   useEffect(() => {
     if (currentAudio !== audioRef.current && isPlaying) {
       audioRef.current.pause();
       setIsPlaying(false);
     }
-  }, [currentAudio]);
+  }, [currentAudio, isPlaying]);
 
+  // Toggle play/pause
   const togglePlay = () => {
     if (!isPlaying) {
       setCurrentAudio(audioRef.current);
@@ -29,12 +30,14 @@ export default function AudioCard({ data, currentAudio, setCurrentAudio }) {
 
   // Update progress and time
   const updateProgress = () => {
-    setCurrentTime(audioRef.current.currentTime);
-    setDuration(audioRef.current.duration || 0);
-    setProgress((audioRef.current.currentTime / audioRef.current.duration) * 100 || 0);
+    const audio = audioRef.current;
+    if (!audio) return;
+    setCurrentTime(audio.currentTime);
+    setDuration(audio.duration || 0);
+    setProgress((audio.currentTime / audio.duration) * 100 || 0);
   };
 
-  // Simple mini waveform effect using canvas
+  // Mini waveform visualizer
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -45,7 +48,7 @@ export default function AudioCard({ data, currentAudio, setCurrentAudio }) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const barCount = 20;
       for (let i = 0; i < barCount; i++) {
-        const height = Math.random() * 10; // random mini visualizer
+        const height = Math.random() * 10;
         ctx.fillStyle = "#ff4d6d";
         ctx.fillRect(i * 6, canvas.height - height, 4, height);
       }
@@ -61,39 +64,47 @@ export default function AudioCard({ data, currentAudio, setCurrentAudio }) {
   const formatTime = (time) => {
     if (!time) return "0:00";
     const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60)
-      .toString()
-      .padStart(2, "0");
+    const seconds = Math.floor(time % 60).toString().padStart(2, "0");
     return `${minutes}:${seconds}`;
   };
 
   return (
-    <div className="card">
+    <div className={`card ${currentAudio === audioRef.current ? "playing" : ""}`}>
+      {/* Cover Image */}
       <img src={data.image} alt={data.title} className="cover" />
 
+      {/* Play / Pause Button */}
       <button className="play-btn" onClick={togglePlay}>
         {isPlaying ? "⏸ Pause" : "▶ Play"}
       </button>
 
+      {/* Progress Slider */}
       <input
         type="range"
         className="progress"
         value={progress}
+        style={{ "--progress": `${progress}%` }}
         onChange={(e) => {
-          const time = (e.target.value / 100) * audioRef.current.duration;
-          audioRef.current.currentTime = time;
+          const audio = audioRef.current;
+          if (!audio) return;
+          const time = (e.target.value / 100) * audio.duration;
+          audio.currentTime = time;
           setProgress(e.target.value);
         }}
       />
 
+      {/* Time Display */}
       <div className="time-display">
         {formatTime(currentTime)} / {formatTime(duration)}
       </div>
 
+      {/* Mini Waveform Visualizer */}
       <canvas ref={canvasRef} width={120} height={20} className="visualizer" />
 
+      {/* Audio Title */}
       <p className="title">{data.title}</p>
 
+      {/* Audio Element */}
       <audio
         ref={audioRef}
         src={data.audio}
@@ -103,3 +114,5 @@ export default function AudioCard({ data, currentAudio, setCurrentAudio }) {
     </div>
   );
 }
+
+
