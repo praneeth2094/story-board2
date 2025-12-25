@@ -31,6 +31,14 @@ body {
 }
 
 /* Card List */
+.card-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* 👈 THIS is the key */
+  padding: 12px;
+  gap: 16px;
+}
+
 @media(min-width: 600px) {
   .card-list {
     display: grid;
