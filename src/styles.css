@@ -284,3 +284,89 @@ body {
 .cover {
   transition: transform 0.3s ease, filter 0.3s ease, background 0.3s ease;
 }
+/* ====== Premium Header ====== */
+.app-header {
+  text-align: center;
+  padding: 24px 16px 12px;
+}
+
+.app-title {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+.app-subtitle {
+  margin-top: 6px;
+  font-size: 14px;
+  opacity: 0.7;
+  line-height: 1.4;
+}
+
+/* Light theme polish */
+.app.light .app-subtitle {
+  opacity: 0.6;
+}
+
+
+/* ====== Premium Editorial Header ====== */
+.app-header {
+  position: relative;
+  text-align: center;
+  padding: 28px 16px 18px;
+}
+
+/* Accent divider */
+.header-accent {
+  width: 42px;
+  height: 3px;
+  margin: 0 auto 14px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+  opacity: 0.9;
+}
+
+/* Title */
+.app-title {
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  margin: 0;
+  line-height: 1.1;
+
+  /* Subtle premium gradient */
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #dcdcdc 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Light mode override */
+.app.light .app-title {
+  background: linear-gradient(
+    180deg,
+    #111 0%,
+    #444 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Subtitle */
+.app-subtitle {
+  margin-top: 8px;
+  font-size: 14px;
+  opacity: 0.75;
+  line-height: 1.5;
+  max-width: 260px;
+  margin-left: auto;
+  margin-right: auto;
+}

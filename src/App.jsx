@@ -13,7 +13,12 @@ export default function App() {
     <div className={`app ${theme}`}>
       {/* Header */}
       <header className="app-header">
-        <h1>Our Story 💖</h1>
+        <div className="header-accent" />
+        <h1 className="app-title">Stories for you</h1>
+        <p className="app-subtitle">
+          A private collection of narrated stories
+        </p>
+
         <button className="theme-btn" onClick={toggleTheme}>
           {theme === "dark" ? "🌞 Light" : "🌙 Dark"}
         </button>
